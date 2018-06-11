@@ -15,7 +15,7 @@ adq.app <- function(Xapp,zapp)
   {
     indk <- which(zapp==k)
     #on extrait les individus de la classe
-    individus_de_la_classe = Xapp[indk,]
+    individus_de_la_classe <- Xapp[indk,]
     #experence de la classe K
     param$mean[k,] <- apply(individus_de_la_classe, 2, mean)
     #proportion de la classe K
@@ -23,8 +23,9 @@ adq.app <- function(Xapp,zapp)
     #matrice de covariance de la classe K
     param$MCov[,,k] <- cov(individus_de_la_classe)
   }
-  param
+  return(param)
 }
+
 
 adl.app <- function(Xapp,zapp)
 {
@@ -42,7 +43,7 @@ adl.app <- function(Xapp,zapp)
   {
     indk <- which(zapp==k)
     #extrait de la class 
-    individus_de_la_classe = Xapp[indk,]
+    individus_de_la_classe <- Xapp[indk,]
     #experence de la classe k
     param$mean[k,] <- apply(individus_de_la_classe, 2, mean)
     #proportion de la classe k
@@ -50,13 +51,14 @@ adl.app <- function(Xapp,zapp)
     #covariance de la classe k
     MCov <- MCov + length(indk)*cov(individus_de_la_classe)
   }
-  MCov <- MCov / n # == length(zapp)
+  MCov <- MCov / n 
   for(k in 1:g)
   {
     param$MCov[,,k] <- MCov
   }
-  param
+  return(param)
 }
+
 
 nba.app <- function(Xapp, zapp)
 {
@@ -73,7 +75,7 @@ nba.app <- function(Xapp, zapp)
   {
     indk <- which(zapp==k)
     # on extrait les individus de la classe
-    individus_de_la_classe = Xapp[indk,]
+    individus_de_la_classe <- Xapp[indk,]
     # on store les paramètres de la classe k
     # esperance de la classe k
     param$mean[k,] <- apply(individus_de_la_classe, 2, mean)
@@ -83,7 +85,7 @@ nba.app <- function(Xapp, zapp)
     param$MCov[,,k] <- diag(diag(cov(individus_de_la_classe)))
   }
   
-  param
+  return(param)
 }
 
 ad.val <- function(param, Xtst)
