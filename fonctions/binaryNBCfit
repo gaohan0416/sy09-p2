@@ -1,0 +1,62 @@
+
+binaryNBCfit <- function (Xapp,zapp)
+{
+  n <- nrow(Xapp)
+  p <- ncol(Xapp)
+  g <- max(unique(zapp))
+  
+  param <- NULL
+  pkj <- array(0,c(p,g))
+  pik <- rep(0,g)
+  
+  for (k in 1:g)
+  {
+    indk <- which(zapp==k)
+    individus_de_la_classe <- Xapp[indk,]
+    pkj[k,] <- apply(individus_de_la_classe,2,mean)
+    pik[k] <- length(indk)/n
+    
+  }
+  
+ param$pkj <- pkj
+ param$pik <- pik
+
+ return(param)
+}
+
+binaryNBCval <- function(param, Xtst)
+{
+
+  n <- nrow(Xtst)
+  p <- ncol(Xtst)
+  g <- length(param$pik)
+  
+  res <- list()
+  prob <- matrix(0, nrow=n, ncol=g)
+  
+  for(k in 1:g)
+  {
+    pik <- param$pik[k]
+    for(i in 1:n)
+    {
+      prob.ik <- 1
+      for(j in 1:p)
+      {
+        pkj <- param$pkj[k,j]
+        prob.ij <- pkj ** Xtst[i,j] * (1-pkj) ** (1 - Xtst[i,j])
+        prob.ik <- prob.ik * prob.ij
+      }
+      prob[i,k] <- prob.ik * pik
+    }
+  }
+  
+  prob <- prob / apply(prob,1,sum) 
+  pred <- max.col(prob)
+  
+  res$prob <- prob
+  res$pred <- pred
+  names(res) <- c("ProbabilitéPosteriori", "Prediction")
+  
+  return(res)
+  
+}
