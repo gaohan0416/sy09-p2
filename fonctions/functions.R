@@ -66,7 +66,7 @@ calculTauxErreurADL <- function(Xapp, zapp, Xtst, ztst){
   return(tauxErreur.tst)
 }
 
-#calcul du taux d'erreur pour le classifieur bayésien naif (NBA)
+#calcul du taux d'erreur pour le classifieur bayÃ©sien naif (NBA)
 calculTauxErreurNBAnoSep <- function(donn){
   n <- ncol(donn)
   X <- donn[,1:(n-1)]
@@ -152,12 +152,12 @@ scriptCalculTauxErreurRL <- function(donn, intercept, nbIter){
   return(res)
 }
 
-#calcul du taux erreur avec la méthode des arbres binaires de décison
+#calcul du taux erreur avec la mÃ©thode des arbres binaires de dÃ©cison
 calculTauxErreurABD <- function(Xapp, zapp, Xtst, ztst){
   
-  #calcul de l'arbre de décision
+  #calcul de l'arbre de dÃ©cision
   tree <- rpart(zapp~.,data=Xapp)
-  #élagage de l'abre pour obtenir l'arbre optimal
+  #Ã©lagage de l'abre pour obtenir l'arbre optimal
   treeOptimal <- prune(tree,cp=tree$cptable[which.min(tree$cptable[,4]),1])
   
   #prediction de l'arbre
@@ -271,7 +271,7 @@ compareModelsErrorOnSonar <- function(donn, nbIter){
   return(res)
 }
 
-#script pour tester les résultats de l'ADL, ADQ et le NBA un nombre nbIter de fois
+#script pour tester les rÃ©sultats de l'ADL, ADQ et le NBA un nombre nbIter de fois
 compareModelsErrorClassDiscri <- function(donn, nbIter){
   matErr <- matrix(0, nrow = nbIter, ncol = 3)
   for(i in 1:nbIter){
