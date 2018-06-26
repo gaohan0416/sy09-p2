@@ -25,7 +25,7 @@ binaryNBCfit <- function(Xapp, zapp)
     
     #moyenne des individus de la classe k
     pkj[k,] <- apply(Xk, 2, mean)
-    #probabilité à priori d'être dans la classe k
+    #probabilitÃ© Ã  priori d'Ãªtre dans la classe k
     pik[k] <- nk / n
     
   }
